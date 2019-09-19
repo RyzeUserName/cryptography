@@ -4,7 +4,7 @@
 
 ## 1.介绍
 
-​	![image](https://github.com/RyzeUserName/cryptography/tree/master/assets/d6d9992a221d6abb35df1acc2105b32.png)
+​	![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/d6d9992a221d6abb35df1acc2105b32.png)
 
 ​	**常识**：
 
