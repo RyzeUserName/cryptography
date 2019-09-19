@@ -4,7 +4,7 @@
 
 ## 1.介绍
 
-​	![](.\assets\d6d9992a221d6abb35df1acc2105b32.png)
+​	![](https://github.com/RyzeUserName/cryptography/tree/master/assetsd6d9992a221d6abb35df1acc2105b32.png)
 
 ​	**常识**：
 
