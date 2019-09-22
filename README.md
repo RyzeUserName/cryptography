@@ -4,7 +4,9 @@
 
 ## 1.介绍
 
-​	![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/d6d9992a221d6abb35df1acc2105b32.png)
+​	![img](https://github.com/RyzeUserName/cryptography/blob/master/assets/d6d9992a221d6abb35df1acc2105b32.png)
+
+![d6d9992a221d6abb35df1acc2105b32.png](https://github.com/RyzeUserName/cryptography/blob/master/assets/d6d9992a221d6abb35df1acc2105b32.png?raw=true)
 
 ​	**常识**：
 
@@ -36,6 +38,8 @@
 
 ### 3.Enigma
 
+​		对称加密算法的流加密
+
 ​		根据每日密钥设置 Enigma，然后加密 通信密码（密码一般两遍表示通信无误） ，根据通信密码设置Enigma ，
 
 ​		再然后加密信息，将加密密码和加密信息发送 解密一样
@@ -52,11 +56,21 @@
 
 异或运算，只要不相同，那么就是1否则是0
 
+0000  0111     7
+
+0000  1000     8
+
+0000  1111      结果
+
+0000  1000    8
+
+0000   0111    7
+
 A XOR B  XOR B = A
 
 ### 3.一次性密码本
 
-​	明文 XOR  随机密钥 = 密文  解密  密文 XOR 随机密钥 = 结果
+​	明文 XOR  随机密钥 = 密文  **解密**  密文 XOR 随机密钥 = 结果
 
 ​	无法破译的，暴力破解 即便 拥有超强的计算能力和足够的时间，关键是也无法确定到底哪个正确，所以无法破译
 
@@ -74,11 +88,15 @@ A XOR B  XOR B = A
 
 ### 4.DES
 
-​	使用了Feistel网络。
+​	使用了Feistel网络 或  Feistel密码结构。
+
+![img](https://gss3.bdstatic.com/7Po3dSag_xI4khGkpoWK1HF6hhy/baike/c0%3Dbaike92%2C5%2C5%2C92%2C30/sign=de44e957314e251ff6faecaac6efa272/e824b899a9014c08f17663c80b7b02087bf4f40a.jpg)
 
 ​	对称加密，密钥64比特，每隔7比特设置一个用于检查错误的比特，DES 每次加密只能对64比特，所以分组加密
 
-​	每64 比特 加密16轮 ，一轮是 64比特分成 32+32 ，先根据右侧32位+轮函数+ 局部密钥 生成的结果 XOR 左侧  生成
+​	每64 比特 加密16轮 ，一轮是 64比特分成 32+32 ，
+
+​	先根据右侧32位+轮函数+ 局部密钥 生成的结果 XOR 左侧  生成
 
 ​	加密的左侧，加密的左侧+原来的右侧 进行下轮加密 （下轮会 根据左侧加密右侧，之后也是 左右左右...）
 
