@@ -4,8 +4,6 @@
 
 ## 1.介绍
 
-​	![img](https://github.com/RyzeUserName/cryptography/blob/master/assets/d6d9992a221d6abb35df1acc2105b32.png)
-
 ![d6d9992a221d6abb35df1acc2105b32.png](https://github.com/RyzeUserName/cryptography/blob/master/assets/d6d9992a221d6abb35df1acc2105b32.png?raw=true)
 
 ​	**常识**：
@@ -54,7 +52,7 @@
 
 ### 2.XOR运算
 
-异或运算，只要不相同，那么就是1否则是0
+异或运算，只要不相同，那么就是1        否则是0
 
 0000  0111     7
 
@@ -132,7 +130,7 @@ A XOR B  XOR B = A
 
 ​		 (电子密码本模式) 直接加密的方式
 
-​		![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/1546495618(1).jpg)
+​		![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/1546495618(1).jpg?raw=true)
 
 ​		**缺点**：相同明文分组结果是一样的，密文的相同代表明文的相同，无需破译密码就能够操作明文。​		
 
@@ -142,7 +140,7 @@ A XOR B  XOR B = A
 
 ​		量IV《必须使用不可预测的随机数》,第一组的加密）
 
-​	![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/1546495680(1).jpg)
+​	![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/1546495680(1).jpg?raw=true)
 
 ​		**缺点**：有一组的缺失 导致后续的密文 不可解析（可以对初始化向量进行攻击，SSL/TLS 1.0的缺陷）
 
@@ -152,7 +150,7 @@ A XOR B  XOR B = A
 
 ​			分组数据进行填充，他通常和ECB模式以及CBC模式配合使用。
 
-​			![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/1546495860.jpg)
+​			![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/1546495860.jpg?raw=true)
 
 ### 4.CFB
 
@@ -162,7 +160,7 @@ A XOR B  XOR B = A
 
 ​			密码来实现流密码的方式，解密依然是加密的算法 前一组密文  加密 XOR  当前组的密文=当前组的明文
 
-​	![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/1546495910(1).jpg)
+​	![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/1546495910(1).jpg?raw=true)
 
 ​			**缺点**：重放攻击  （将上次密文 重复发送）（无法确定 是通讯错误 还是 被人篡改）
 
@@ -176,7 +174,7 @@ A XOR B  XOR B = A
 
 ​			生成密匙与进行XOR可以并行
 
-​			![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-03_141312.png)
+​			![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-03_141312.png?raw=true)
 
 ### 6.CTR
 
@@ -186,13 +184,13 @@ A XOR B  XOR B = A
 
 ​			机序列，CTR可以并行计算，速度非常快。
 
-​		![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-03_141905.png)
+​		![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-03_141905.png?raw=true)
 
 ​	在CTR 模式上 增加 认证功能 **GCM**模式 ，生成密文的同时生成认证信息，从而判断密文是否合法。
 
 ### 7.小结
 
-​	![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/1546498720(1).jpg)
+​	![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/1546498720(1).jpg?raw=true)
 
 ## 5.公钥密码（非对称密码）
 
@@ -218,7 +216,7 @@ A XOR B  XOR B = A
 
 ​	假设一个时钟 0到11 	
 
-​	![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/1546504270(1).jpg)
+​	![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/1546504270(1).jpg?raw=true)
 
 ​	**加法** 向右旋转  在7 位置 向右旋转6格 那么停在  （6+7）mod 12 =1 上
 
@@ -268,7 +266,7 @@ $$
 $$
 ​	**D和N组合就是私钥，写成(D,N)或者{D,N}**
 
-​	![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-03_172302.png)
+​	![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-03_172302.png?raw=true)
 
 ​	**生成密钥对**：生成N->生成L->生成E->生成D
 
@@ -280,7 +278,7 @@ $$
 
 ​		求D，1<D<L 且E * D mod L =1
 
-​	![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-03_174329.png)
+​	![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-03_174329.png?raw=true)
 
 ​	**破解RSA**：
 
@@ -318,7 +316,7 @@ $$
 
 ​	对称密码和公钥密码的机密性会随着密钥长度而变化，这两种加密也不能根据长度直接对比。对比图如下
 
-![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-03_204712.png)
+![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-03_204712.png?raw=true)
 
 单位是 比特。
 
@@ -328,7 +326,7 @@ $$
 
 导
 
-![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-03_205506.png)
+![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-03_205506.png?raw=true)
 
 ​	**公钥密码解决了密钥配送的问题，基于数学上的困难保障其机密性，而对称密码通过将明文转换成复杂的形式保证其**
 
@@ -354,7 +352,7 @@ $$
 
 ​		4.发送加密信息
 
-​		![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-03_212120.png)
+​		![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-03_212120.png?raw=true)
 
 ### 2.怎么获得高强度
 
@@ -396,7 +394,7 @@ $$
 
 ​		**1.检测软件是否篡改**
 
-​	![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-03_222925.png)
+​	![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-03_222925.png?raw=true)
 
 ​		**2.基于口令加密**
 
@@ -436,7 +434,7 @@ $$
 
 ​		SHA-256、SHA-384、SHA-512 统称为SHA-2 产生的散列长度为对应数字（目前尚未被攻破）
 
-![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-03_225803.png)
+![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-03_225803.png?raw=true)
 
 ​		3.PIPEMD-160
 
@@ -446,7 +444,7 @@ $$
 
 ​		SHA-3是标准，其 具体实现 是 Keccak 算法
 
-​		优点：![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-03_230256.png)
+​		优点：![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-03_230256.png?raw=true)
 
 ### 4.Keccak
 
@@ -458,7 +456,7 @@ $$
 
 ​		**1.海绵结构**:将输入的消息吸收到内部状态（吸收阶段），然后再根据内部状态挤出（挤出阶段）响应散列。
 
-![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-03_233647.png)
+![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-03_233647.png?raw=true)
 
 ​	**吸收阶段**：
 
@@ -482,7 +480,7 @@ $$
 
 **2.双工结构** 海绵结构的变形
 
-​			![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-04_000958.png)
+​			![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-04_000958.png?raw=true)
 
  **改进**：	不需要将消息全部吸收后才能开始计算。通过双工结构Keccak 不仅可用于计算散列函数计算，还可以覆盖密码
 
@@ -532,7 +530,7 @@ $$
 
 ​	**消息认证码是一种与密钥相关联的单向散列函数**
 
-![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-04_105539.png)
+![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-04_105539.png?raw=true)
 
 ​	**当然也存在密钥配送问题。**
 
@@ -564,7 +562,7 @@ $$
 
 ​		4.HMAC 
 
-![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-04_112225.png)
+![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-04_112225.png?raw=true)
 
 ### 5.攻击
 
@@ -594,7 +592,7 @@ $$
 
 ​	跟公钥密码很像，但是是反过来使用的(私钥生成签名，公钥验签)。
 
-![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-04_141859.png)
+![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-04_141859.png?raw=true)
 
 ### 2.数字签名的方法
 
@@ -670,7 +668,7 @@ $$
 
 ### 8.小结
 
-​		![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-04_151540.png)
+​		![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-04_151540.png?raw=true)
 
 ​		**密钥是机密性的精华，单向散列函数的散列值是完整性的精华**
 
@@ -688,7 +686,7 @@ $$
 
 ​	织的可信 第三方）施加**数字签名**
 
-​	证书使用情景:![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-04_155447.png)
+​	证书使用情景:![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-04_155447.png?raw=true)
 
 ​	第三步的身份确认有三个级别： 1邮箱 2 第三方数据库 3.当面认证 等级越高 身份确认越严格
 
@@ -804,17 +802,17 @@ $$
 
 ​	的共享密钥。
 
-​	![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-05_162735.png)
+​	![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-05_162735.png?raw=true)
 
 ### 4.基于口令的密码	PBE
 
 ​	基于口令的密码，java 中的javax.crypto
 
-​	![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-05_165709.png)
+​	![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-05_165709.png?raw=true)
 
 解密：1 根据盐 重新生成KEK 2 解密密钥 3 密钥解密消息
 
-​	![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-05_165928.png)
+​	![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-05_165928.png?raw=true)
 
 盐 是防止字典攻击。
 
@@ -860,7 +858,7 @@ $$
 
 ​	**以上三个性质，越往下越严格。**
 
-​	![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-07_100315.png)
+​	![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-07_100315.png?raw=true)
 
 ### 3.伪随机数的生成器
 
@@ -868,7 +866,7 @@ $$
 
 ​	伪随机数生成器具有“内部状态”，并个人剧外部输入的“种子”来生成伪随机数列。
 
-​	![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-07_170510.png)
+​	![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-07_170510.png?raw=true)
 
 ​	**伪随机数生成器的内部状态**，指伪随机数生成器所管理的内存中的数值，请求->根据内部状态计算出数值，并改变内
 
@@ -878,7 +876,7 @@ $$
 
 ​	化，伪随机数生成器是公开的，但是种子是保密的。
 
-​	![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-07_191732.png)
+​	![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-07_191732.png?raw=true)
 
 ### 4.具体的伪随机数生成器
 
@@ -892,7 +890,7 @@ $$
 
 ​	使用很广的伪随机数生成器算法，但是并不能用于密码技术，不具备不可预测性，不能用于密码技术
 
-​	![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-07_210821.png)
+​	![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-07_210821.png?raw=true)
 
 ​	**3.单向散列函数法**（可以）
 
@@ -900,25 +898,25 @@ $$
 
 ​	**具备不可预测性，单向散列函数的不可逆性是支撑伪随机数生成器的不可预测性**
 
-​	![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-07_211221.png)
+​	![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-07_211221.png?raw=true)
 
 ​	**4.密码法**(可以)
 
-​	![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-07_211331.png)
+​	![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-07_211331.png?raw=true)
 
 ​	即可用对称加密也可以用公钥加密
 
 ​	**密码的机密性是支撑伪随机数生成器不可预测性的基础**
 
-​	![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-07_211538.png)
+​	![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-07_211538.png?raw=true)
 
 ​	**5.ANSI X9.17**（可以）
 
 ​		被用于PGP密码软件
 
-​		![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-07_211844.png)
+​		![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-07_211844.png?raw=true)
 
-​	![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-07_212040.png)
+​	![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-07_212040.png?raw=true)
 
 ​	**6.其它算法**
 
@@ -944,7 +942,7 @@ $$
 
 ​	密码软件，以及另外一款GunPG 遵照OpenGPG（对密文和数字签名格式进行定义的标准规范）规范编写的
 
-​	![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-07_213930.png)
+​	![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-07_213930.png?raw=true)
 
 ​	PGP功能：对称密码、公钥密码、数字签名、单向散列函数、证书、压缩、文本数据（ASCII radix-64格式，用于邮
 
@@ -954,21 +952,21 @@ $$
 
 ### 3.加密和解密
 
-​	![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-07_215200.png)
+​	![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-07_215200.png?raw=true)
 
-​	![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-07_215331.png)
+​	![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-07_215331.png?raw=true)
 
 ### 4.生成和验证数字签名
 
-​	![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-07_220312.png)
+​	![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-07_220312.png?raw=true)
 
-​		![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-07_220415.png)
+​		![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-07_220415.png?raw=true)
 
 ### 5.生成数字签名并加密以及验证
 
-​	![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-07_221919.png)
+​	![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-07_221919.png?raw=true)
 
-​		![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-07_222312.png)
+​		![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-07_222312.png?raw=true)
 
 ### 6.信任网
 
@@ -998,15 +996,15 @@ $$
 
 ​	外的其他操作）
 
-​	![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-07_230915.png)
+​	![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-07_230915.png?raw=true)
 
-​		![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-07_232443.png)
+​		![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-07_232443.png?raw=true)
 
 1.握手协议：服务端与客户端在密码通信前交换一些必要信息，生成共享密钥以及交换证书，因此使用公钥密码或者
 
 ​		Diffie-Hellman密钥交换
 
-​	![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-08_103602.png)
+​	![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-08_103602.png?raw=true)
 
 2.密码规格变更协议
 
@@ -1026,11 +1024,11 @@ $$
 
 ​	用预备密码、客户端随机数和服务器随机数计算出来
 
-​	![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-08_112938.png)
+​	![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-08_112938.png?raw=true)
 
 6.小结
 
-![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-08_113037.png)
+![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-08_113037.png?raw=true)
 
 7.攻击
 
@@ -1068,11 +1066,11 @@ $$
 
 ​	我们生活在不完美的安全中
 
-​	![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-08_152723.png)
+​	![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-08_152723.png?raw=true)
 
-![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-08_152738.png)
+![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-08_152738.png?raw=true)
 
-![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-08_153346.png)
+![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-08_153346.png?raw=true)
 
 ### 1.比特币
 
@@ -1100,7 +1098,7 @@ $$
 
 区块链就是保存比特币全部交易记录的公共账簿，以区块为单位组织起来，保存着每个地址的每次交易记录
 
-![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-08_191715.png)
+![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-08_191715.png?raw=true)
 
 ### 2.量子密码
 
