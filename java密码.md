@@ -150,7 +150,7 @@ SMTP、ARP、TFTP等协议，从上到下分为网络接口层、网络层、传
 
 ​	很显然需要第三方的软件的话，需要在这配置
 
-​	2.Security类
+#### 	2.Security类
 
 ​	This class centralizes（集中） all security properties and common security  methods. One of its primary uses is to manage providers.
 
@@ -158,11 +158,315 @@ SMTP、ARP、TFTP等协议，从上到下分为网络接口层、网络层、传
 
 ​	final 的类，读取 lib/security/java.security 文件中的配置
 
-​	查看当前环境的类
+​	查看当前环境中管理的类
 
 ​	![1569209114225](https://github.com/RyzeUserName/cryptography/blob/master/assets/1569209114225.png?raw=true)
 
-​	
+#### 3.MessageDigest类
+
+​	MessageDigest 实现了消息摘要算法
+
+​	我的jdk1.8版本 支持   MD5  SHA-1  SHA-256 算法
+
+```java
+    public static void main(String[] args) throws NoSuchAlgorithmException {
+        byte[] bytes = "sha".getBytes();
+        MessageDigest sha_256 = MessageDigest.getInstance("SHA-256");
+        MessageDigest md5 = MessageDigest.getInstance("MD5");
+        //摘要
+        byte[] shaDigest = sha_256.digest(bytes);
+        byte[] md5Digest = md5.digest(bytes);
+        printC(shaDigest);
+        printC(md5Digest);
+    }
+    public static void printC(byte[] bytes){
+        for (byte b:bytes) {
+            System.out.print(b);
+        }
+        System.out.println();
+    }
+```
+
+#### 4.DigestInputStream类	
+
+消息摘要输入流，继承 FilterInputStream
+
+```java
+    public static void main(String[] args) throws NoSuchAlgorithmException, IOException {
+        byte[] bytes = "sha".getBytes();
+        MessageDigest md5 = MessageDigest.getInstance("MD5");
+        DigestInputStream digestInputStream = new DigestInputStream(new ByteArrayInputStream(bytes), md5);
+        //读    一定需要读
+        digestInputStream.read(bytes, 0, bytes.length);
+        byte[] digest = digestInputStream.getMessageDigest().digest();
+        //关流
+        digestInputStream.close();
+        printC(digest);
+    }
+    public static void printC(byte[] bytes){
+        for (byte b:bytes) {
+            System.out.print(b);
+        }
+        System.out.println();
+    }
+```
+
+#### 5.DigestOutputStream类
+
+继承FilterOutputStream ，与上面的类对应，是通过write，消息摘要输出流
+
+```java
+    public static void main(String[] args) throws NoSuchAlgorithmException, IOException {
+        byte[] bytes = "sha".getBytes();
+        MessageDigest md5 = MessageDigest.getInstance("md5");
+        DigestOutputStream digestOutputStream = new DigestOutputStream(new ByteArrayOutputStream(), md5);
+        //写
+        digestOutputStream.write(bytes);
+        byte[] digest = digestOutputStream.getMessageDigest().digest();
+        //关流
+        digestOutputStream.close();
+        printC(digest);
+    }
+	public static void printC(byte[] bytes){
+        for (byte b:bytes) {
+            System.out.print(b);
+        }
+        System.out.println();
+    }
+```
+
+#### 6.key接口
+
+​	是所有密钥接口的顶层接口
+
+​	所有秘钥特征：1. 算法  
+
+​							 2.编码 (密钥的外部编码形式 《密钥展示编码》)  返回xx编码格式的密钥
+
+​							3.格式  返回密钥的编码格式
+
+​	SecretKey，PublicKey，PrivateKey 接口均继承Key接口 密钥体系
+
+#### 7.AlgorithmParameters类
+
+提供参数的不透明表示  不可直接get到，而是得参数相关联的算法名以及该参数集的某类编码
+
+支持 AES DES DESede DiffieHellman  DSA 等
+
+```java
+ public static void main(String[] args) throws NoSuchAlgorithmException, IOException {
+        //指定算法  算法跟参数有关
+        AlgorithmParameters des = AlgorithmParameters.getInstance("DES");
+        //添加参数
+        des.init(new BigInteger("19050619766489163472469").toByteArray());
+        //获取参数字节数组
+        byte[] encoded = des.getEncoded();
+        System.out.println(new BigInteger(encoded).toString());
+    }
+```
+
+#### 8.AlgorithmParameterGenerator 类
+
+用于生成某种算法的参数集合
+
+目前   支持 DiffieHellman   DSA
+
+```java
+ public static void main(String[] args) throws NoSuchAlgorithmException, IOException {
+        AlgorithmParameterGenerator dsa = AlgorithmParameterGenerator.getInstance("DSA");
+        dsa.init(512);
+        AlgorithmParameters algorithmParameters = dsa.generateParameters();
+        byte[] encoded = algorithmParameters.getEncoded();
+        System.out.println(new BigInteger(encoded).toString());
+    }
+```
+
+注意：AlgorithmParameters AlgorithmParameterGenerator  很少用到，除非对算法参数要求极为严格
+
+#### 9.KeyPair 类
+
+钥匙串，公、私钥
+
+#### 10.KeyPairGenerator
+
+​	KeyPair 生成器
+
+​	目前支持   DiffieHellman (1024)  DSA 1024 RSA (1024, 2048)
+
+```java
+    public static void main(String[] args) throws NoSuchAlgorithmException {
+        KeyPairGenerator ras = KeyPairGenerator.getInstance("RSA");
+        //初始化
+        ras.initialize(512);
+        KeyPair keyPair = ras.generateKeyPair();
+        PrivateKey aPrivate = keyPair.getPrivate();
+        PublicKey aPublic = keyPair.getPublic();
+    }
+```
+
+#### 11.KeyFactory
+
+密钥工厂，用于生成公/私钥，还可以通过密钥规范还原密钥
+
+目前支持 DiffieHellman  DSA  RSA
+
+```java
+    public static void main(String[] args) throws NoSuchAlgorithmException, InvalidKeySpecException {
+        //密钥生成
+        KeyPairGenerator ras = KeyPairGenerator.getInstance("RSA");
+        //初始化
+        ras.initialize(1024);
+        KeyPair keyPair = ras.generateKeyPair();
+        PrivateKey aPrivate = keyPair.getPrivate();
+        byte[] encoded = aPrivate.getEncoded();
+        //根据 私钥字节  获取密钥规范
+        PKCS8EncodedKeySpec pkcs8EncodedKeySpec = new PKCS8EncodedKeySpec(encoded);
+        //工厂还原密钥
+        KeyFactory rsa = KeyFactory.getInstance("RSA");
+        PrivateKey privateKey = rsa.generatePrivate(pkcs8EncodedKeySpec);
+        System.out.println(privateKey.equals(aPrivate));
+    }
+```
+
+#### 12.SecureRandom
+
+安全随机数生成器，继承 Random ，起到强化加强随机数生成器的作用，一般用于配合密钥生成
+
+```java
+ public static void main(String[] args) throws NoSuchAlgorithmException {
+        SecureRandom secureRandom = new SecureRandom();
+        KeyPairGenerator rsa = KeyPairGenerator.getInstance("RSA");
+        //初始化
+        rsa.initialize(512,secureRandom);
+        KeyPair keyPair = rsa.generateKeyPair();
+        PrivateKey aPrivate = keyPair.getPrivate();
+        PublicKey aPublic = keyPair.getPublic();
+    }
+```
+
+#### 13.Signature
+
+数字签名
+
+支持 SHA1withDSA  SHA1withRSA    SHA256withRSA
+
+```java
+public static void main(String[] args) throws NoSuchAlgorithmException, InvalidKeyException, SignatureException {
+        //数据
+        byte[] datas = "data".getBytes();
+
+        //生成公私钥
+        KeyPairGenerator ras = KeyPairGenerator.getInstance("RSA");
+        ras.initialize(512);
+        KeyPair keyPair = ras.generateKeyPair();
+        PrivateKey aPrivate = keyPair.getPrivate();
+        PublicKey aPublic = keyPair.getPublic();
+
+        //签名
+        Signature signature = Signature.getInstance("SHA256withRSA");
+        //初始化
+        signature.initSign(aPrivate);
+        signature.update(datas);
+        //获取签名
+        byte[] sign = signature.sign();
+
+        //校验签名
+        signature.initVerify(aPublic);
+        //初始化
+        signature.update(datas);
+        boolean verify = signature.verify(sign);
+        System.out.println(verify);
+    }
+```
+
+
+
+#### 14.SignedObject
+
+用于表示一个运行时不会发生变化的签名对象（其实就是 内置一个 object 是源对象的深层复制）
+
+支持 SHA256withDSA   SHA256withRSA 等
+
+```java
+public static void main(String[] args) throws NoSuchAlgorithmException, InvalidKeyException, IOException, SignatureException {
+        //数据
+        byte[] datas = "data".getBytes();
+
+        //生成公私钥
+        KeyPairGenerator ras = KeyPairGenerator.getInstance("RSA");
+        ras.initialize(512);
+        KeyPair keyPair = ras.generateKeyPair();
+        PrivateKey aPrivate = keyPair.getPrivate();
+        PublicKey aPublic = keyPair.getPublic();
+
+        //签名
+        Signature sha256withRSA = Signature.getInstance("SHA256withRSA");
+        SignedObject signedObject = new SignedObject(datas, aPrivate, sha256withRSA);
+        byte[] signature = signedObject.getSignature();
+        //校验签名
+    	sha256withRSA.update(signature);
+        boolean verify = signedObject.verify(aPublic, sha256withRSA);
+        System.out.println(verify);
+
+    }
+```
+
+#### 15.Timestamp
+
+数字时间戳，用于封装时间戳的信息，并且是不可变的
+
+```java
+public static void main(String[] args) throws CertificateException, FileNotFoundException {
+        //证书 生成
+        CertificateFactory x509 = CertificateFactory.getInstance("X509");
+        FileInputStream fileInputStream = new FileInputStream("D:\\x.cer");
+        CertPath certificate = x509.generateCertPath(fileInputStream);
+        //生成
+        Timestamp timestamp = new Timestamp(new Date(), certificate);
+    }
+```
+
+证书 生成需要参考后面
+
+#### 16.CodeSigner
+
+封装了代码签名者信息，且不可变，代码签名
+
+```java
+public static void main(String[] args) throws CertificateException, FileNotFoundException {
+        //证书 生成
+        CertificateFactory x509 = CertificateFactory.getInstance("X509");
+        FileInputStream fileInputStream = new FileInputStream("D:\\x.cer");
+        CertPath certificate = x509.generateCertPath(fileInputStream);
+        //生成 timestamp
+        Timestamp timestamp = new Timestamp(new Date(), certificate);
+        //实例化
+        CodeSigner codeSigner = new CodeSigner(certificate, timestamp);
+        //比较
+        codeSigner.equals(new CodeSigner(certificate, timestamp));
+    }
+```
+
+
+
+#### 17. KeyStore
+
+密钥库，用于管理密钥和证书的存储。提供了相当完善的接口来访问和修改密钥仓库中的信息
+
+目前支持 PKCS12 、jks 等 
+
+```java
+    public static void main(String[] args) throws KeyStoreException, UnrecoverableEntryException, NoSuchAlgorithmException {
+        //获取实例
+        KeyStore instance = KeyStore.getInstance(KeyStore.getDefaultType());
+        KeyStore.PasswordProtection passwordProtection = new KeyStore.PasswordProtection("password".toCharArray());
+        //获取私钥
+        KeyStore.PrivateKeyEntry privateKeyEntry = (KeyStore.PrivateKeyEntry) instance.getEntry("别名", passwordProtection);
+        PrivateKey privateKey = privateKeyEntry.getPrivateKey();
+    }
+```
+
+
 
 ### 2.javax.crypto 包
 

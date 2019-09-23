@@ -9,7 +9,7 @@ import java.util.Map;
  * @author Ryze
  * @date 2019-09-23 11:20
  */
-public class security {
+public class SecurityTest {
     public static void main(String[] args) {
         Provider[] providers = Security.getProviders();
         for (Provider provider : providers) {
