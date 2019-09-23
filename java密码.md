@@ -150,7 +150,19 @@ SMTP、ARP、TFTP等协议，从上到下分为网络接口层、网络层、传
 
 ​	很显然需要第三方的软件的话，需要在这配置
 
+​	2.Security类
 
+​	This class centralizes（集中） all security properties and common security  methods. One of its primary uses is to manage providers.
+
+​	The default values of security properties are read from an implementation-specific location, which is typically the properties file  {@code lib/security/java.security} in the Java installation directory.
+
+​	final 的类，读取 lib/security/java.security 文件中的配置
+
+​	查看当前环境的类
+
+​	![1569209114225](https://github.com/RyzeUserName/cryptography/blob/master/assets/1569209114225.png?raw=true)
+
+​	
 
 ### 2.javax.crypto 包
 
