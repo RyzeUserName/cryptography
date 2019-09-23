@@ -124,13 +124,13 @@ SMTP、ARP、TFTP等协议，从上到下分为网络接口层、网络层、传
 
 ​	全提供者的细节，Bouncy，Castle提供了可以在J2ME/J2EE/J2SE平台得到支持的API，并且是免费的
 
-
-
 ​	安全算法提供者实现了两个抽象概念：引擎（操作 加密 解密）和算法（如何执行）
 
-​	java.security.Provider类（提供者）+Security类共同构成了安全提供者的概念
 
 
+### 1.java.security包
+
+​	Provider类（提供者）+Security类共同构成了安全提供者的概念
 
 ​	1.java API 支持: MessageDigest类（MD5、SHA）Mac类（对称加密，非对称加密） Signature类(签名)
 
@@ -139,3 +139,11 @@ SMTP、ARP、TFTP等协议，从上到下分为网络接口层、网络层、传
 ​	2.JSP 容器支持: 对SSL/TLS 支持
 
 ​	3.java工具支持：通过KeyTool（密钥管理 证书管理）JarSigner (签名)
+
+### 2.javax.crypto 包
+
+### 3.java.security.spec 包 与javax.crypto.spec 包
+
+### 4.java.security.cert包
+
+### 5.javax.net.ssl包
