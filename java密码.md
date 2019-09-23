@@ -470,8 +470,74 @@ public static void main(String[] args) throws CertificateException, FileNotFound
 
 ### 2.javax.crypto 包
 
+加密操作提供类和接口，加密的 Cipher类
+
+#### 1.Mac类
+
+​	消息摘要的一种，不同于MessageDigest，需要秘钥才可以生成摘要，即安全消息摘要
+
+#### 2.KeyGenerator 类
+
+#### 3.KeyAgreement类
+
+#### 4.SecretKeyFactory类
+
+#### 5.Cipher类
+
+#### 6.CipherInputStream类
+
+#### 7. CipherOutputStream类
+
+#### 8.SealedObject类
+
 ### 3.java.security.spec 包 与javax.crypto.spec 包
+
+秘钥规范和算法参数规范的类和接口
+
+#### 1.KeySpec 与 AlgorithmParameterSpec 接口
+
+#### 2.EncodedKeySpec 类
+
+#### 3.SecretKeySpec类
+
+#### 4.DESKeySpec类
 
 ### 4.java.security.cert包
 
+证书解析、管理、撤销、证书路径的类和接口
+
+#### 1.Certificate类
+
+#### 2.CertificateFactory类
+
+#### 3. X509Certificate类
+
+#### 4.CRL类
+
+#### 5.X509CRLEntry类
+
+#### 6.X509CRL类
+
+#### 7.CertPath类
+
 ### 5.javax.net.ssl包
+
+用于安全套接字
+
+#### 1.KeyManagerFactory类
+
+#### 2.TrustManagerFactory类
+
+#### 3.SSLContext类
+
+#### 4.HttpsURLConnection类
+
+#### 5.SSLSession接口
+
+#### 6.SSLSocketFactory类
+
+#### 7.SSLSocket类
+
+#### 8.SSLServerSocketFactory类
+
+#### 9.SSLServerSocket类
