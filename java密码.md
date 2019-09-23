@@ -126,19 +126,23 @@ SMTP、ARP、TFTP等协议，从上到下分为网络接口层、网络层、传
 
 ​	安全算法提供者实现了两个抽象概念：引擎（操作 加密 解密）和算法（如何执行）
 
+​	jdk中
 
+![1569204771381](https://github.com/RyzeUserName/cryptography/blob/master/assets/1569204771381.png?raw=true)
 
 ### 1.java.security包
 
-​	Provider类（提供者）+Security类共同构成了安全提供者的概念
+#### 	1.Provider类（提供者）
 
-​	1.java API 支持: MessageDigest类（MD5、SHA）Mac类（对称加密，非对称加密） Signature类(签名)
+​	 This class represents a "provider" for the Java Security API, where a provider implements some or all parts of Java Security. Services that a provider may implement include:
 
-​	Certificate类（操作证书）
+​	Algorithms (such as DSA, RSA, MD5 or SHA-1).
 
-​	2.JSP 容器支持: 对SSL/TLS 支持
+​	Key generation, conversion, and management facilities (such as for  algorithm-specific keys).
 
-​	3.java工具支持：通过KeyTool（密钥管理 证书管理）JarSigner (签名)
+​	实现类：
+
+​	![1569207396328](https://github.com/RyzeUserName/cryptography/blob/master/assets/1569207396328.png?raw=true)
 
 ### 2.javax.crypto 包
 
