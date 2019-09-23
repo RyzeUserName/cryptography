@@ -142,13 +142,13 @@ SMTP、ARP、TFTP等协议，从上到下分为网络接口层、网络层、传
 
 ​	实现类：
 
-​	![1569207396328](https://github.com/RyzeUserName/cryptography/blob/master/assets/1569207396328.png?raw=tru)
+​	![1569207396328](https://github.com/RyzeUserName/cryptography/blob/master/assets/1569207396328.png?raw=true)
 
 ​	jdk中的提供者在
 
-​	![1569208175390](E:\study\cryptography\cryptography\assets\1569208175390.png)
+​	![1569208175390](https://github.com/RyzeUserName/cryptography/blob/master/assets/1569208175390.png?raw=true)
 
-
+​	很显然需要第三方的软件的话，需要在这配置
 
 
 
