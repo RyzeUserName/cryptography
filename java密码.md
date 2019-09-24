@@ -476,13 +476,122 @@ public static void main(String[] args) throws CertificateException, FileNotFound
 
 ​	消息摘要的一种，不同于MessageDigest，需要秘钥才可以生成摘要，即安全消息摘要
 
+​	基于加密散列函数的MAC机制被称为HMAC。 HMAC可以与任何加密散列函数一起使用，例如MD5或SHA-1与秘密共	享密钥的组合
+
+​	支持 HmacMD5   HmacSHA1   HmacSHA256 
+
+```java
+public static void main(String[] args) throws NoSuchAlgorithmException, InvalidKeyException {
+        byte[] data = "Mac".getBytes();
+        //获取密钥
+        KeyGenerator hmacMD51 = KeyGenerator.getInstance("HmacMD5");
+        SecretKey secretKey = hmacMD51.generateKey();
+        //获取实例
+        Mac hmacMD5 = Mac.getInstance("HmacMD5");
+        //初始化
+        hmacMD5.init(secretKey);
+        //签名
+        byte[] bytes = hmacMD5.doFinal(data);
+    }
+```
+
+
+
 #### 2.KeyGenerator 类
+
+提供了一个秘密（对称）密钥生成器的功能  KeyGenerator对象是可重用的，即在生成一个密钥之后，可以重新使用相同的KeyGenerator对象来生成其他密钥。 
+
+支持： AES （128）  DES （56） DESede （168） HmacSHA1 HmacSHA256  等
+
+```java
+    public static void main(String[] args) throws NoSuchAlgorithmException {
+        //获取密钥
+        KeyGenerator hmacMD51 = KeyGenerator.getInstance("HmacMD5");
+        SecretKey secretKey = hmacMD51.generateKey();
+    }
+```
+
+
 
 #### 3.KeyAgreement类
 
+提供了密钥协议（或密钥交换）协议的功能。DiffieHellman 实现中使用它
+
+```java
+    public static void main(String[] args) throws NoSuchAlgorithmException, InvalidKeyException {
+        //假如 密钥交换的是两方 那么
+        KeyPairGenerator instance = KeyPairGenerator.getInstance("DH");
+        //两方的交换的密钥
+        KeyPair keyPair1 = instance.genKeyPair();
+        KeyPair keyPair2 = instance.genKeyPair();
+        //实例化
+        KeyAgreement agreement1 = KeyAgreement.getInstance("DH");
+        agreement1.init(keyPair1.getPrivate());
+        agreement1.doPhase(keyPair2.getPublic(), true);
+        //生成
+        SecretKey des1 = agreement1.generateSecret("DES");
+        byte[] bytes = agreement1.generateSecret();
+        //实例化
+        KeyAgreement agreement2 = KeyAgreement.getInstance("DH");
+        agreement2.init(keyPair2.getPrivate());
+        agreement2.doPhase(keyPair1.getPublic(), true);
+        //生成
+        SecretKey des2 = agreement2.generateSecret("DES");
+        System.out.println(des1.equals(des2));
+    }
+```
+
+以上代码没有执行成功！提示没有该算法，也不知道怎么搞
+
+
+
 #### 4.SecretKeyFactory类
 
+用于产生密钥 的工厂，类似于KeyFactory
+
+```java
+  public static void main(String[] args) throws NoSuchAlgorithmException, InvalidKeyException, InvalidKeySpecException {
+        //des 的key
+        KeyGenerator des = KeyGenerator.getInstance("DES");
+        SecretKey secretKey = des.generateKey();
+        byte[] encoded = secretKey.getEncoded();
+        //获取规范
+        DESKeySpec desKeySpec = new DESKeySpec(encoded);
+        SecretKeyFactory secretKeyFactory = SecretKeyFactory.getInstance("DES");
+        //生成key
+        SecretKey secretKey1 = secretKeyFactory.generateSecret(desKeySpec);
+        //比较 发现是一样的
+        System.out.println(secretKey.equals(secretKey1));
+    }
+```
+
+
+
 #### 5.Cipher类
+
+为加密解密提供密码功能。jce的核心
+
+Cipher类 实例化 getInstance()  参数  “算法/模式/填充” 或   “算法”  的字符串 
+
+支持 
+
+AES/CBC/NoPadding （128） 
+AES/CBC/PKCS5Padding （128） 
+AES/ECB/NoPadding （128） 
+AES/ECB/PKCS5Padding （128） 
+DES/CBC/NoPadding （56） 
+DES/CBC/PKCS5Padding（56） 
+DES/ECB/NoPadding（56） 
+DES/ECB/PKCS5Padding （56） 
+DESede/CBC/NoPadding （168） 
+DESede/CBC/PKCS5Padding （168） 
+DESede/ECB/NoPadding （168） 
+DESede/ECB/PKCS5Padding （168） 
+RSA/ECB/PKCS1Padding （ 1024，2048 ） 
+RSA/ECB/OAEPWithSHA-1AndMGF1Padding （ 1024，2048 ） 
+RSA/ECB/OAEPWithSHA-256AndMGF1Padding （ 1024，2048 ） 
+
+
 
 #### 6.CipherInputStream类
 
