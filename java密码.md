@@ -707,7 +707,27 @@ SealedObject 里有个深度拷贝的原对象
 
 #### 1.KeySpec 与 AlgorithmParameterSpec 接口
 
+将所有参数规范分组，为其提供安全类型
+
+**KeySpec** 
+
+加密密钥的密钥材料的规范 
+
+如果密钥存储在硬件设备上，则其规范可能包含有助于识别设备上的密钥的信息。
+
+**AlgorithmParameterSpec** 
+
+密码参数的（透明）规范。
+
+此接口不包含方法或常量。 其唯一目的是为所有参数规格分组（并提供类型安全性）。  所有参数规范必须实现此接口。 
+
 #### 2.EncodedKeySpec 类
+
+该类表示编码格式的公钥或私钥。 
+
+子类 PKCS8EncodedKeySpec （私钥）， X509EncodedKeySpec （公钥）
+
+
 
 #### 3.SecretKeySpec类
 
