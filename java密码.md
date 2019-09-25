@@ -591,13 +591,115 @@ RSA/ECB/PKCS1Padding （ 1024，2048 ）
 RSA/ECB/OAEPWithSHA-1AndMGF1Padding （ 1024，2048 ） 
 RSA/ECB/OAEPWithSHA-256AndMGF1Padding （ 1024，2048 ） 
 
+```java
+    public static void main(String[] args) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
+        //des 生成key
+        KeyGenerator keyGenerator = KeyGenerator.getInstance("DES");
+        SecretKey secretKey = keyGenerator.generateKey();
+        //初始化
+        Cipher cipher = Cipher.getInstance("DES");
+        //包装key
+        cipher.init(Cipher.WRAP_MODE, secretKey);
+        //keys 传递过去 应该
+        byte[] keys = cipher.wrap(secretKey);
+
+        //解包装
+        cipher.init(Cipher.UNWRAP_MODE, secretKey);
+        Key des = cipher.unwrap(keys, "DES", Cipher.SECRET_KEY);
+        //两个是一样的
+        System.out.println(des.equals(secretKey));
+
+        //加密
+        cipher.init(Cipher.ENCRYPT_MODE, secretKey);
+        byte[] bytes = cipher.doFinal("data".getBytes());
+
+        //解密
+        cipher.init(Cipher.DECRYPT_MODE, secretKey);
+        byte[] doFinal = cipher.doFinal(bytes);
+        System.out.println(new String(doFinal));
+    }
+```
+
 
 
 #### 6.CipherInputStream类
 
+密钥输入流，从流中直接解密
+
+```java
+public static void main(String[] args) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException, IOException {
+        //des 生成key
+        KeyGenerator keyGenerator = KeyGenerator.getInstance("DES");
+        SecretKey secretKey = keyGenerator.generateKey();
+        //初始化
+        Cipher cipher = Cipher.getInstance("DES");
+        //解密模式
+        cipher.init(Cipher.DECRYPT_MODE, secretKey);
+        //初始化流
+        CipherInputStream cipherInputStream = new CipherInputStream(new FileInputStream(new File("secret")), cipher);
+        DataInputStream dataInputStream = new DataInputStream(cipherInputStream);
+        //读出解密的数据
+        String s = dataInputStream.readUTF();
+        dataInputStream.close();
+        cipherInputStream.close();
+    }
+```
+
 #### 7. CipherOutputStream类
 
+密钥输出流，写入加密的数据
+
+```java
+ public static void main(String[] args) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException, IOException {
+        //des 生成key
+        KeyGenerator keyGenerator = KeyGenerator.getInstance("DES");
+        SecretKey secretKey = keyGenerator.generateKey();
+        //初始化
+        Cipher cipher = Cipher.getInstance("DES");
+        //加密模式
+        cipher.init(Cipher.ENCRYPT_MODE, secretKey);
+        //初始化流
+        CipherOutputStream cipherInputStream = new CipherOutputStream(new FileOutputStream(new File("secret")), cipher);
+        DataOutputStream dataInputStream = new DataOutputStream(cipherInputStream);
+        //写入加密的数据
+        dataInputStream.writeUTF("data");
+        dataInputStream.close();
+        cipherInputStream.close();
+    }
+```
+
 #### 8.SealedObject类
+
+该类使程序员能够使用加密算法创建对象并保护其机密性
+
+SealedObject 里有个深度拷贝的原对象
+
+```java
+    public static void main(String[] args) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, IOException, IllegalBlockSizeException, BadPaddingException, ClassNotFoundException {
+        String data="1223444";
+        //des 生成key
+        KeyGenerator keyGenerator = KeyGenerator.getInstance("DES");
+        SecretKey secretKey = keyGenerator.generateKey();
+        //初始化
+        Cipher cipher = Cipher.getInstance("DES");
+        //加密
+        cipher.init(Cipher.ENCRYPT_MODE,secretKey);
+        //初始化
+        SealedObject sealedObject = new SealedObject(data, cipher);
+
+        //初始化
+        Cipher cipher1 = Cipher.getInstance("DES");
+        cipher1.init(Cipher.DECRYPT_MODE,secretKey);
+        //获取对象  
+        Object object = sealedObject.getObject(cipher1);
+        System.out.println(object.equals(data));
+        //获取对象
+        Object object1 = sealedObject.getObject(secretKey);
+        System.out.println(object.equals(object1));
+    }
+```
+
+
 
 ### 3.java.security.spec 包 与javax.crypto.spec 包
 
