@@ -756,9 +756,54 @@ KeySpec 实现类 用于构建密钥规范，可根据一个字节数组构建�
 
 SecretKeyFactory
 
+```java
+    public static void main(String[] args) throws NoSuchAlgorithmException, InvalidKeySpecException {
+        KeyPairGenerator dsa = KeyPairGenerator.getInstance("DSA");
+        dsa.initialize(512);
+        KeyPair keyPair = dsa.genKeyPair();
+        PublicKey aPublic = keyPair.getPublic();
+        PrivateKey aPrivate = keyPair.getPrivate();
+        byte[] pub = aPublic.getEncoded();
+        byte[] pri = aPrivate.getEncoded();
+        //公钥  私钥
+        X509EncodedKeySpec x509EncodedKeySpec = new X509EncodedKeySpec(pub);
+        PKCS8EncodedKeySpec pkcs8EncodedKeySpec = new PKCS8EncodedKeySpec(pri);
+        KeyFactory factory = KeyFactory.getInstance("DSA");
+        PublicKey publicKey = factory.generatePublic(x509EncodedKeySpec);
+        PrivateKey privateKey = factory.generatePrivate(pkcs8EncodedKeySpec);
+        System.out.println(publicKey.equals(aPublic));
+        System.out.println(privateKey.equals(aPrivate));
+    }
+```
+
 
 
 #### 4.DESKeySpec类
+
+DESedeKeySpec  就是指定了DES算法的 SecretKeySpec
+
+```java
+ public static void main(String[] args) throws NoSuchAlgorithmException, InvalidKeyException, InvalidKeySpecException {
+        //将DES 换称 DESede （三重DES）大致相同
+        KeyGenerator generator = KeyGenerator.getInstance("DES");
+        SecretKey secretKey = generator.generateKey();
+        byte[] encoded = secretKey.getEncoded();
+
+        //通过SecretKeySpec 生成key
+        SecretKeySpec des = new SecretKeySpec(encoded, "DES");
+        SecretKeyFactory secretKeyFactory = SecretKeyFactory.getInstance("DES");
+        SecretKey secretKey1 = secretKeyFactory.generateSecret(des);
+        System.out.println(secretKey.equals(secretKey1));
+
+        //DESKeySpec 生成key
+        DESKeySpec desKeySpec = new DESKeySpec(encoded);
+        SecretKey secretKey2 = secretKeyFactory.generateSecret(desKeySpec);
+        System.out.println(secretKey.equals(secretKey2));
+
+    }
+```
+
+
 
 ### 4.java.security.cert包
 

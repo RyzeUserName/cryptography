@@ -19,6 +19,7 @@ public class EncodedKeySpecTest {
         PrivateKey aPrivate = keyPair.getPrivate();
         byte[] pub = aPublic.getEncoded();
         byte[] pri = aPrivate.getEncoded();
+        //公钥  私钥
         X509EncodedKeySpec x509EncodedKeySpec = new X509EncodedKeySpec(pub);
         PKCS8EncodedKeySpec pkcs8EncodedKeySpec = new PKCS8EncodedKeySpec(pri);
         KeyFactory factory = KeyFactory.getInstance("DSA");
@@ -26,7 +27,5 @@ public class EncodedKeySpecTest {
         PrivateKey privateKey = factory.generatePrivate(pkcs8EncodedKeySpec);
         System.out.println(publicKey.equals(aPublic));
         System.out.println(privateKey.equals(aPrivate));
-
-
     }
 }
