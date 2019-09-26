@@ -811,11 +811,58 @@ DESedeKeySpec  就是指定了DES算法的 SecretKeySpec
 
 #### 1.Certificate类
 
+用于管理证书的抽象类
+
 #### 2.CertificateFactory类
+
+证书工厂  支持X.509   PKCS7   PkiPath
+
+```java
+ public static void main(String[] args) throws CertificateException, IOException {
+        //加载证书
+        CertificateFactory instance = CertificateFactory.getInstance("X.509");
+        FileInputStream stream = new FileInputStream("D:\\x.keystore");
+        Certificate certificate = instance.generateCertificate(stream);
+        stream.close();
+    }
+```
+
+
 
 #### 3. X509Certificate类
 
+X509Certificate是Certificate的子类 也就是X.509证书的抽象类
+
+```java
+    public static void main(String[] args) throws IOException, KeyStoreException, CertificateException, NoSuchAlgorithmException {
+        FileInputStream stream = new FileInputStream("D:\\x.keystore");
+        KeyStore jks = KeyStore.getInstance("JKS");
+        //加载密钥库
+        jks.load(stream,"password".toCharArray());
+        stream.close();
+        //获取证书
+        X509Certificate x509Certificate = (X509Certificate) jks.getCertificate("别名");
+        //根据证书获取 签名对象
+        Signature instance = Signature.getInstance(x509Certificate.getSigAlgName());
+    }
+```
+
 #### 4.CRL类
+
+撤销证书列表  抽象类
+
+```java
+ public static void main(String[] args) throws IOException, CertificateException, CRLException {
+        //加载证书
+        CertificateFactory instance = CertificateFactory.getInstance("X.509");
+        FileInputStream stream = new FileInputStream("D:\\x.keystore");
+        //获取撤销证书列表
+        CRL crl = instance.generateCRL(stream);
+        stream.close();
+    }
+```
+
+
 
 #### 5.X509CRLEntry类
 
