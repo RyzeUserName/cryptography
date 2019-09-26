@@ -727,9 +727,36 @@ SealedObject 里有个深度拷贝的原对象
 
 子类 PKCS8EncodedKeySpec （私钥）， X509EncodedKeySpec （公钥）
 
+```java
+ public static void main(String[] args) throws NoSuchAlgorithmException, InvalidKeySpecException {
+        KeyPairGenerator dsa = KeyPairGenerator.getInstance("DSA");
+        dsa.initialize(512);
+        KeyPair keyPair = dsa.genKeyPair();
+        PublicKey aPublic = keyPair.getPublic();
+        PrivateKey aPrivate = keyPair.getPrivate();
+        byte[] pub = aPublic.getEncoded();
+        byte[] pri = aPrivate.getEncoded();
+        X509EncodedKeySpec x509EncodedKeySpec = new X509EncodedKeySpec(pub);
+        PKCS8EncodedKeySpec pkcs8EncodedKeySpec = new PKCS8EncodedKeySpec(pri);
+        KeyFactory factory = KeyFactory.getInstance("DSA");
+        PublicKey publicKey = factory.generatePublic(x509EncodedKeySpec);
+        PrivateKey privateKey = factory.generatePrivate(pkcs8EncodedKeySpec);
+        System.out.println(publicKey.equals(aPublic));
+        System.out.println(privateKey.equals(aPrivate));
+
+
+    }
+```
+
 
 
 #### 3.SecretKeySpec类
+
+KeySpec 实现类 用于构建密钥规范，可根据一个字节数组构建一个SecretKey 无需基于一个provider 的 
+
+SecretKeyFactory
+
+
 
 #### 4.DESKeySpec类
 
