@@ -866,9 +866,41 @@ X509Certificate是Certificate的子类 也就是X.509证书的抽象类
 
 #### 5.X509CRLEntry类
 
+X509 的可用于撤销证书
+
 #### 6.X509CRL类
 
+X509 的撤销证书类
+
+```java
+public static void main(String[] args) throws CertificateException, IOException, CRLException {
+        //加载证书
+        CertificateFactory instance = CertificateFactory.getInstance("X.509");
+        FileInputStream stream = new FileInputStream("D:\\x.keystore");
+        X509Certificate certificate = (X509Certificate)instance.generateCertificate(stream);
+        X509CRL crl = (X509CRL)instance.generateCRL(stream);
+        //获取撤销证书列表
+        X509CRLEntry revokedCertificate = crl.getRevokedCertificate(certificate);
+        stream.close();
+    }
+```
+
 #### 7.CertPath类
+
+​	CertPath 抽象类，子类可用于不同证书类型处理
+
+```java
+ public static void main(String[] args) throws CertificateException, CRLException, IOException {
+        //加载证书
+        CertificateFactory instance = CertificateFactory.getInstance("X.509");
+        FileInputStream stream = new FileInputStream("D:\\x.keystore");
+        //生成
+        CertPath certPath = instance.generateCertPath(stream);
+        stream.close();
+    }
+```
+
+
 
 ### 5.javax.net.ssl包
 
