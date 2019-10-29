@@ -360,7 +360,7 @@ $$
 
 ​		4.发送加密信息
 
-​		![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-03_212120.png?raw=true)
+​		![image](https://github.com/RyzeUserName/cryptography/blob/master/assets/2019-01-03_212120.png)
 
 ### 2.怎么获得高强度
 
